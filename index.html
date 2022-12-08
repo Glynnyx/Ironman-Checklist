@@ -55,8 +55,9 @@ for (const todo of existingTodos) {
 }
 
     addTodo.addEventListener("click", () => {
-      console.log(todo, existingTodos);
       const todo = todoInput.value;
+      console.log(todo, existingTodos);
+
       if (todo) {
         const item = document.createElement("li");
         item.innerHTML = `
@@ -66,8 +67,8 @@ for (const todo of existingTodos) {
         `;
 
 addTodo.addEventListener("click", () => {
-  console.log(todo, existingTodos);
   const todo = todoInput.value;
+  console.log(todo, existingTodos);  
   if (todo) {
     const item = document.createElement("li");
     item.innerHTML = `
