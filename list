@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>To-Do List</title>
+  <style>
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    input[type="checkbox"] {
+      margin-right: 0.5em;
+    }
+  </style>
+</head>
+<body>
+  <h1>To-Do List</h1>
+  <ul id="todo-list"></ul>
+  <input type="text" id="todo-input" placeholder="Add a new to-do" />
+  <button id="add-todo">Add</button>
+  <script>
+    const todoList = document.getElementById("todo-list");
+    const todoInput = document.getElementById("todo-input");
+    const addTodo = document.getElementById("add-todo");
+
+    // Load any existing to-do items from localStorage
+    const existingTodos = JSON.parse(localStorage.getItem("todos")) || [];
+    for (const todo of existingTodos) {
+      const item = document.createElement("li");
+      item.innerHTML = `<input type="checkbox" ${todo.isChecked ? "checked" : ""} /> ${todo.text}`;
+      todoList.appendChild(item);
+    }
+
+    addTodo.addEventListener("click", () => {
+      const todo = todoInput.value;
+      if (todo) {
+        const item = document.createElement("li");
+        item.innerHTML = `<input type="checkbox" /> ${todo}`;
+        todoList.appendChild(item);
+        todoInput.value = "";
+
+        // Save the new to-do item to localStorage
+        existingTodos.push({ text: todo, isChecked: false });
+        localStorage.setItem("todos", JSON.stringify(existingTodos));
+      }
+    });
+  </script>
+</body>
+</html>
