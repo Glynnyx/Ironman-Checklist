@@ -62,36 +62,34 @@
           <input type="checkbox" />
           ${todo}
           <button>Remove</button>
-        `
-        todoInput.value = "";
-;
+        `;
 
-      // Add an event listener for the change event on the checkbox
-      const checkbox = item.querySelector("input[type='checkbox']");
-      checkbox.addEventListener("change", () => {
-        // Update the to-do item in localStorage when the checkbox is checked or unchecked
-        const index = existingTodos.findIndex(t => t.text === todo);
-        existingTodos[index].isChecked = checkbox.checked;
+        // Add an event listener for the change event on the checkbox
+        const checkbox = item.querySelector("input[type='checkbox']");
+        checkbox.addEventListener("change", () => {
+          // Update the to-do item in localStorage when the checkbox is checked or unchecked
+          const index = existingTodos.findIndex(t => t.text === todo);
+          existingTodos[index].isChecked = checkbox.checked;
+          localStorage.setItem("todos", JSON.stringify(existingTodos));
+        });
+
+        // Add an event listener for the click event on the remove button
+        const removeButton = item.querySelector("button");
+        removeButton.addEventListener("click", () => {
+          // Remove the to-do item from the list and localStorage when the button is clicked
+          todoList.removeChild(item);
+          const index = existingTodos.findIndex(t => t.text === todo);
+          existingTodos.splice(index, 1);
+          localStorage.setItem("todos", JSON.stringify(existingTodos));
+        });
+
+        todoList.appendChild(item);
+
+        // Save the new to-do item to localStorage
+        existingTodos.push({ text: todo, isChecked: false });
         localStorage.setItem("todos", JSON.stringify(existingTodos));
       });
-
-      // Add an event listener for the click event on the remove button
-      const removeButton = item.querySelector("button");
-      removeButton.addEventListener("click", () => {
-        // Remove the to-do item from the list and localStorage when the button is clicked
-        todoList.removeChild(item);
-        const index = existingTodos.findIndex(t => t.text === todo);
-        existingTodos.splice(index, 1);
-        localStorage.setItem("todos", JSON.stringify(existingTodos));
-      });
-
-      todoList.appendChild(item);
-
-      // Save the new to-do item to localStorage
-      existingTodos.push({ text: todo, isChecked: false });
-      localStorage.setItem("todos", JSON.stringify(existingTodos));
     });
   </script>
 </body>
 </html>
-
