@@ -62,7 +62,9 @@
           <input type="checkbox" />
           ${todo}
           <button>Remove</button>
-        `;
+        `
+        todoInput.value = "";
+;
 
       // Add an event listener for the change event on the checkbox
       const checkbox = item.querySelector("input[type='checkbox']");
